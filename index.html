@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- <script src="https://code.jquery.com/jquery-3.0.0.slim.min.js" integrity="sha256-Rf4BadfyCtsvHmO89BUZcbYvNNvZvOT08ALfEzvCsD0=" crossorigin="anonymous"></script> -->
+	</head>
+
+	<body>
+	<h1>Eu sei onde vc mora...</h1>
+
+	<div id="info">
+	</div>
+	</body>
+
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function(){
+			$.get("http://ipinfo.io", function(response) {
+
+			    $("#info").append('<h3>IP: ' + response.ip + '</h3>');
+			    $("#info").append('<h3>Cidade: ' + response.city + '-' + response.region + '</h3>');
+
+			    alert("buh!");
+			    
+			}, "jsonp");
+		});
+	</script>
+</html>
