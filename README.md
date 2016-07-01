@@ -1,2 +1,2 @@
 # find-location
-Find user location
+Simple snipet to find user's location
