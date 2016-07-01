@@ -7,21 +7,43 @@
 	<body>
 	<h1>Eu sei onde vc mora...</h1>
 
-	<div id="info">
+	<div id="info-ipinfo">
+		<h1>IP</h1>
+	</div>
+
+	<div id="info-google">
+		<h1>Latitude/Longitude</h1>
 	</div>
 	</body>
 
 	<script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function(){
+
+			// https://ipinfo.io/
 			$.get("http://ipinfo.io", function(response) {
 
-			    $("#info").append('<h3>IP: ' + response.ip + '</h3>');
-			    $("#info").append('<h3>Cidade: ' + response.city + '-' + response.region + '</h3>');
-
-			    alert("buh!");
-
+			    $("#info-ipinfo").append('<h4>IP: ' + response.ip + '</h4>');
+			    $("#info-ipinfo").append('<h4>City: ' + response.city + '-' + response.region + '</h4>');
 			}, "jsonp");
+
+			//Google Maps Geocode API
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					function(position){
+						$.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&sensor=true', function(response) {
+
+							$("#info-google").append('<h4>' + response.results[0].formatted_address + '</h4>');
+						});
+					},
+					function(error){
+						alert("Please, share your location with us! =)");
+					}
+				);
+			} else {
+				alert("Can't find your location.");
+			}
+
 		});
 	</script>
 </html>
